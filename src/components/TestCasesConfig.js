@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiPlay, FiPlus, FiTrash2, FiEdit3, FiCheck, FiX } from 'react-icons/fi';
+import { FiPlay, FiTrash2, FiEdit3, FiCheck, FiX } from 'react-icons/fi';
 
 const TestCasesConfig = ({ config = [], updateConfig }) => {
   const [editingIndex, setEditingIndex] = useState(-1);

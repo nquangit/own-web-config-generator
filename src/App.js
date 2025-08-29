@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiSettings, FiGlobe, FiPlay, FiDownload, FiEye, FiCheck, FiAlertTriangle, FiZap } from 'react-icons/fi';
 import ProjectConfig from './components/ProjectConfig';
 import NetworkConfig from './components/NetworkConfig';
@@ -71,11 +71,11 @@ function App() {
     }));
   };
 
-  const validateConfiguration = () => {
+  const validateConfiguration = useCallback(() => {
     const errors = validateConfig(config);
     setValidationErrors(errors);
     return errors.length === 0;
-  };
+  }, [config]);
 
   const downloadConfig = () => {
     try {
@@ -96,7 +96,7 @@ function App() {
 
   useEffect(() => {
     validateConfiguration();
-  }, [config]);
+  }, [config, validateConfiguration]);
 
   const loadTemplate = (templateConfig) => {
     setConfig(templateConfig);

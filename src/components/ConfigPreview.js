@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiEye, FiDownload, FiCopy, FiCheck, FiRefreshCw } from 'react-icons/fi';
 import { generateYAMLConfig } from '../utils/configGenerator';
 
@@ -65,11 +65,7 @@ const ConfigPreview = ({ config }) => {
   const [error, setError] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-    generatePreview();
-  }, [config]);
-
-  const generatePreview = async () => {
+  const generatePreview = useCallback(async () => {
     setIsGenerating(true);
     setError(null);
     
@@ -82,7 +78,11 @@ const ConfigPreview = ({ config }) => {
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [config]);
+
+  useEffect(() => {
+    generatePreview();
+  }, [generatePreview]);
 
   const copyToClipboard = async () => {
     try {
