@@ -22,9 +22,6 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: config_web
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: config_web/build
+          path: build
 
   # Deployment job
   deploy:
