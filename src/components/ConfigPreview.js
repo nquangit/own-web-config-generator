@@ -2,60 +2,72 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FiEye, FiDownload, FiCopy, FiCheck, FiRefreshCw } from 'react-icons/fi';
 import { generateYAMLConfig } from '../utils/configGenerator';
 
-// YAML Syntax Highlighting Component
+// YAML Syntax Highlighting Component with Line Numbers
 const YAMLHighlighter = ({ yamlText }) => {
   const lines = yamlText.split('\n');
   
   return (
-    <>
-      {lines.map((line, index) => {
-        // Handle empty lines
-        if (!line.trim()) {
-          return <div key={index}>&nbsp;</div>;
-        }
-        
-        // Handle comments
-        if (line.trim().startsWith('#')) {
-          return (
-            <div key={index} style={{ color: '#6b7280', fontStyle: 'italic', whiteSpace: 'pre' }}>
-              {line}
-            </div>
-          );
-        }
-        
-        // Handle YAML key-value pairs
-        const keyValueMatch = line.match(/^(\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*(.*)$/);
-        if (keyValueMatch) {
-          const [, indent, key, value] = keyValueMatch;
-          return (
-            <div key={index} style={{ whiteSpace: 'pre' }}>
-              {indent}
-              <span style={{ color: '#fbbf24', fontWeight: 'bold' }}>{key}</span>
-              :{value ? ' ' : ''}
-              {value && <span style={{ color: '#34d399' }}>{value}</span>}
-            </div>
-          );
-        }
-        
-        // Handle list items
-        if (line.match(/^\s*-\s/)) {
-          const dashMatch = line.match(/^(\s*)(-)(\s*.*)$/);
-          if (dashMatch) {
-            const [, indent, dash, rest] = dashMatch;
+    <div className="flex">
+      {/* Line Numbers */}
+      <div className="text-gray-500 text-xs pr-3 select-none border-r border-gray-700">
+        {lines.map((_, index) => (
+          <div key={index} className="text-right leading-5">
+            {index + 1}
+          </div>
+        ))}
+      </div>
+      
+      {/* YAML Content */}
+      <div className="flex-1 pl-3">
+        {lines.map((line, index) => {
+          // Handle empty lines
+          if (!line.trim()) {
+            return <div key={index} className="leading-5">&nbsp;</div>;
+          }
+          
+          // Handle comments
+          if (line.trim().startsWith('#')) {
             return (
-              <div key={index} style={{ whiteSpace: 'pre' }}>
-                {indent}
-                <span style={{ color: '#f87171', fontWeight: 'bold' }}>{dash}</span>
-                {rest}
+              <div key={index} style={{ color: '#6b7280', fontStyle: 'italic', whiteSpace: 'pre' }} className="leading-5">
+                {line}
               </div>
             );
           }
-        }
-        
-        // Default: return line as-is with preserved whitespace
-        return <div key={index} style={{ whiteSpace: 'pre' }}>{line}</div>;
-      })}
-    </>
+          
+          // Handle YAML key-value pairs
+          const keyValueMatch = line.match(/^(\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*(.*)$/);
+          if (keyValueMatch) {
+            const [, indent, key, value] = keyValueMatch;
+            return (
+              <div key={index} style={{ whiteSpace: 'pre' }} className="leading-5">
+                {indent}
+                <span style={{ color: '#fbbf24', fontWeight: 'bold' }}>{key}</span>
+                :{value ? ' ' : ''}
+                {value && <span style={{ color: '#34d399' }}>{value}</span>}
+              </div>
+            );
+          }
+          
+          // Handle list items
+          if (line.match(/^\s*-\s/)) {
+            const dashMatch = line.match(/^(\s*)(-)(\s*.*)$/);
+            if (dashMatch) {
+              const [, indent, dash, rest] = dashMatch;
+              return (
+                <div key={index} style={{ whiteSpace: 'pre' }} className="leading-5">
+                  {indent}
+                  <span style={{ color: '#f87171', fontWeight: 'bold' }}>{dash}</span>
+                  {rest}
+                </div>
+              );
+            }
+          }
+          
+          // Default: return line as-is with preserved whitespace
+          return <div key={index} style={{ whiteSpace: 'pre' }} className="leading-5">{line}</div>;
+        })}
+      </div>
+    </div>
   );
 };
 
