@@ -2,6 +2,7 @@
   "name": "wexbloit-config-generator",
   "version": "1.0.0",
   "description": "Web UI for generating WexBloit configuration files",
+  "homepage": "https://web-gen.nquangit.io.vn",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

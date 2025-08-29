@@ -1,192 +1,110 @@
-# WexBloit Configuration Generator
+# WexBloit Config Generator
 
-A modern web-based UI for generating WexBloit penetration testing configuration files with ease.
+A modern web UI for generating WexBloit penetration testing configuration files with ease.
 
-## Features
+## 🚀 Features
 
-🛡️ **Professional Interface** - Clean, intuitive design for security professionals  
-📝 **Form-Based Configuration** - No more manual YAML editing  
-🔍 **Live Preview** - Real-time YAML generation with syntax highlighting  
-✅ **Validation** - Built-in configuration validation and error checking  
-📊 **Test Case Modules** - Pre-built vulnerability test modules  
-🔄 **Flow Management** - Multi-step test flows with data chaining  
-🌐 **Network Configuration** - Proxy, SSL, and timeout settings  
-📱 **Responsive Design** - Works on desktop, tablet, and mobile  
+- **Visual Configuration Builder**: Intuitive web interface for creating YAML configs
+- **Quick Start Templates**: Pre-built templates for common testing scenarios
+- **Real-time Preview**: Live YAML preview with syntax highlighting
+- **Multi-step Flows**: Build complex multi-step test sequences
+- **Module Support**: Configure test case modules and extensions
+- **Network Settings**: Proxy, SSL, and timeout configuration
+- **Export Options**: Download configurations in YAML format
 
-## Quick Start
+## 🛠️ Development
 
-### Windows Users
+### Prerequisites
 
-1. **Automated Setup (Recommended)**
-   ```cmd
-   cd config_web
-   setup.bat
-   ```
-   
-   Or using PowerShell:
-   ```powershell
-   cd config_web
-   .\setup.ps1
-   ```
+- Node.js 18+ 
+- npm or yarn
 
-2. **Manual Setup**
-   ```cmd
-   cd config_web
-   npm install
-   npm start
-   ```
-
-### Linux/Mac Users
-
-1. **Automated Setup**
-   ```bash
-   cd config_web
-   chmod +x setup.sh
-   ./setup.sh
-   ```
-
-2. **Manual Setup**
-   ```bash
-   cd config_web
-   npm install
-   npm start
-   ```
-
-3. **Open in Browser**
-   Navigate to `http://localhost:3000`
-
-## Build for Production
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
 npm run build
 ```
 
-The built files will be in the `build/` directory, ready for deployment.
+The app will be available at `http://localhost:3500`
 
-## Configuration Sections
+## 🌐 GitHub Pages Deployment
 
-### 🏗️ Project Information
-- Project name, description, and version
-- Output paths and report formats
-- Execution settings
+This project is configured for automatic deployment to GitHub Pages.
 
-### 🌐 Network Configuration
-- HTTP/HTTPS proxy settings (Burp, ZAP, etc.)
-- SSL/TLS certificate handling
-- Timeout and retry configuration
-- User agent customization
+### Setup Instructions
 
-### 🧪 Test Cases
-- Simple, standalone HTTP request tests
-- Expected status codes and validation rules
-- Parallel execution options
+1. **Update Repository Settings**:
+   - Go to your repository Settings → Pages
+   - Set Source to "GitHub Actions"
 
-### 🔄 Flows
-- Multi-step test sequences
-- Data extraction and chaining between steps
-- Request modifications and validations
-- Continue-on-failure options
+2. **Update Homepage URL**:
+   - Edit `package.json` and replace `yourusername` with your actual GitHub username:
+   ```json
+   "homepage": "https://yourusername.github.io/wexbloit"
+   ```
 
-### 🔧 Test Case Modules
-- Pre-built vulnerability test modules:
-  - SQL Injection Testing
-  - Cross-Site Scripting (XSS)
-  - Insecure Direct Object Reference (IDOR)
-  - Broken Function Level Authorization
-  - Mass Assignment
-  - Authentication Testing
-  - Security Headers Analysis
-  - API Security Testing
+3. **Push to Main Branch**:
+   - The workflow will automatically trigger on push to `main` or `master` branch
+   - GitHub Actions will build and deploy your app
 
-### 🔌 Extensions
-- Request/response processing extensions
-- Global configuration variables
-- Custom authentication handling
+### Manual Deployment
 
-## Generated Configuration
+If you need to deploy manually:
 
-The tool generates professional YAML configurations compatible with WexBloit v2.0+:
+```bash
+# Build the project
+npm run build
 
-```yaml
-project:
-  name: "WebApp Security Assessment"
-  description: "Comprehensive security testing"
-  version: "1.0.0"
-
-network:
-  proxy:
-    http: "http://127.0.0.1:8080"
-    https: "http://127.0.0.1:8080"
-  verify_ssl: false
-  timeout: 30
-
-tests:
-  flows:
-    - name: "Authentication Flow"
-      steps:
-        - name: "Login Request"
-          raw_request: "auth/login.txt"
-          extract:
-            json:
-              token: "access_token"
-
-test_case_modules:
-  enabled:
-    - "SQLInjectionTestCase"
-    - "XSSTestCase"
-  global_config:
-    base_url: "https://example.com"
-    username: "testuser"
+# The build folder will be created with production files
 ```
 
-## Key Benefits
+### Workflow Details
 
-### ✅ **No More YAML Syntax Errors**
-- Form-based input prevents syntax mistakes
-- Real-time validation catches configuration errors
-- Professional configuration structure guaranteed
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) includes:
 
-### ⚡ **Faster Configuration**
-- Visual interface is much faster than manual editing
-- Pre-built templates for common scenarios
-- Copy/paste and duplicate functionality
+- **Build Job**: Installs dependencies and builds the React app
+- **Deploy Job**: Deploys the built files to GitHub Pages
+- **Caching**: Optimized npm caching for faster builds
+- **Concurrency Control**: Prevents multiple deployments running simultaneously
 
-### 🎯 **Professional Results**
-- Generates production-ready configurations
-- Includes all necessary sections and validation
-- Compatible with enterprise security workflows
+### Troubleshooting
 
-### 🔍 **Better Understanding**
-- Clear documentation and examples
-- Tooltips and help sections throughout
-- Visual representation of test relationships
+1. **Build Fails**: Check the Actions tab for error details
+2. **Page Not Found**: Verify the homepage URL in `package.json`
+3. **Assets Not Loading**: Ensure all paths are relative (React handles this automatically)
 
-## Technology Stack
+## 📁 Project Structure
 
-- **React 18** - Modern UI framework
-- **Tailwind CSS** - Utility-first styling
-- **js-yaml** - YAML generation and parsing
-- **React Icons** - Professional iconography
+```
+config_web/
+├── src/
+│   ├── components/          # React components
+│   ├── utils/              # Utility functions
+│   └── App.js              # Main app component
+├── public/                 # Static assets
+├── .github/workflows/      # GitHub Actions
+└── package.json           # Dependencies and scripts
+```
 
-## Browser Support
+## 🔧 Configuration
 
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+The app generates YAML configurations compatible with WexBloit v2.0+ including:
 
-## Contributing
+- **Project Settings**: Name, description, version
+- **Network Configuration**: Proxy, SSL, timeouts
+- **Test Cases**: Individual test configurations
+- **Flows**: Multi-step test sequences
+- **Modules**: Test case modules and extensions
+- **Execution**: Parallel processing and delays
+- **Output**: Report formats and paths
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 📝 License
 
-## License
-
-This project is part of the WexBloit toolkit. See the main project for licensing information.
-
----
-
-**Made with ❤️ for the cybersecurity community**
+This project is part of the WexBloit toolkit.
